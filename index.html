@@ -4,32 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Combinações</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 <body>
     <h1>Gerador de Combinações</h1>
     <form>
         <label for="cfops">CFOPs:</label>
-        <input type="text" name="cfops" id="cfops"><br><br>
+        <input type="text" name="cfops" id="cfops" value="5201,6108,6102"><br><br>
 
         <label for="estado_emissor">Estado Emissor:</label>
-        <input type="text" name="estado_emissor" id="estado_emissor"><br><br>
-
-        <label for="estado_destinatario">Estado Destinatário:</label>
-        <input type="text" name="estado_destinatario" id="estado_destinatario"><br><br>
+        <input type="text" name="estado_emissor" id="estado_emissor" value="SP"><br><br>
 
         <label for="regime_emissor">Regime Emissor:</label>
-        <input type="text" name="regime_emissor" id="regime_emissor"><br><br>
-
-        <label for="regime_destinatario">Regime Destinatário:</label>
-        <input type="text" name="regime_destinatario" id="regime_destinatario"><br><br>
+        <input type="text" name="regime_emissor" id="regime_emissor" value="Lucro real"><br><br>
 
         <label for="linha_emissor">Linha Emissor:</label>
-        <input type="text" name="linha_emissor" id="linha_emissor"><br><br>
+        <input type="text" name="linha_emissor" id="linha_emissor" value="Venda de mercadoria"><br><br>
+
+        <label for="estado_destinatario">Estado Destinatário:</label>
+        <input type="text" name="estado_destinatario" id="estado_destinatario" value="SP,RJ,DF,MG"><br><br>
+
+        <label for="regime_destinatario">Regime Destinatário:</label>
+        <input type="text" name="regime_destinatario" id="regime_destinatario" value="Lucro real, lucro presumido"><br><br>
 
         <label for="linha_destinatario">Linha Destinatário:</label>
-        <input type="text" name="linha_destinatario" id="linha_destinatario"><br><br>
+        <input type="text" name="linha_destinatario" id="linha_destinatario" value="venda de mercadoria, prestação de serviço"><br><br>
 
         <button type="button" id="gerar_combinacoes">Gerar Combinacoes</button>
+        <button type="button" id="exportar_csv">Exportar CSV</button>
         <button type="button" id="limpar_resultados">Limpar Resultados</button>
     </form>
 
@@ -37,26 +39,46 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            var combinacoes;
             document.querySelector('#gerar_combinacoes').addEventListener('click', function () {
-                var cfops = document.querySelector('#cfops').value.split(',');
-                var estados_emissor = document.querySelector('#estado_emissor').value.split(',');
-                var estados_destinatario = document.querySelector('#estado_destinatario').value.split(',');
-                var regime_emissor = document.querySelector('#regime_emissor').value.split(',');
-                var regime_destinatario = document.querySelector('#regime_destinatario').value.split(',');
-                var linha_emissor = document.querySelector('#linha_emissor').value.split(',');
-                var linha_destinatario = document.querySelector('#linha_destinatario').value.split(',');
+                var cfops = document.querySelector('#cfops').value.split(/[,\|]+/);
+                var estados_emissor = document.querySelector('#estado_emissor').value.split(/[,\|]+/);
+                var estados_destinatario = document.querySelector('#estado_destinatario').value.split(/[,\|]+/);
+                var regime_emissor = document.querySelector('#regime_emissor').value.split(/[,\|]+/);
+                var regime_destinatario = document.querySelector('#regime_destinatario').value.split(/[,\|]+/);
+                var linha_emissor = document.querySelector('#linha_emissor').value.split(/[,\|]+/);
+                var linha_destinatario = document.querySelector('#linha_destinatario').value.split(/[,\|]+/);
 
-                var todos_critérios = [cfops, estados_emissor, estados_destinatario, regime_emissor, regime_destinatario, linha_emissor, linha_destinatario];
-
-                var combinacoes = cartesianProduct(todos_critérios);
+                combinacoes = cartesianProduct([estados_emissor, estados_destinatario, cfops, regime_emissor, regime_destinatario, linha_emissor, linha_destinatario]);
 
                 var resultado = "<h2>Resultado das Combinações:" + " " + combinacoes.length + "</h2><ul>";
                 for (var i = 0; i < combinacoes.length; i++) {
-                    resultado += "<li>" + combinacoes[i].join(', ') + "</li>";
+                    resultado += "<li>" + combinacoes[i].join(' ; ') + "</li>";
                 }
                 resultado += "</ul>";
 
                 document.querySelector('#resultado').innerHTML = resultado;
+            });
+
+            document.querySelector('#exportar_csv').addEventListener('click', function () {
+                var cfops = document.querySelector('#cfops').value.split(/[,\|]+/);
+                var estados_emissor = document.querySelector('#estado_emissor').value.split(/[,\|]+/);
+                var estados_destinatario = document.querySelector('#estado_destinatario').value.split(/[,\|]+/);
+                var regime_emissor = document.querySelector('#regime_emissor').value.split(/[,\|]+/);
+                var regime_destinatario = document.querySelector('#regime_destinatario').value.split(/[,\|]+/);
+                var linha_emissor = document.querySelector('#linha_emissor').value.split(/[,\|]+/);
+                var linha_destinatario = document.querySelector('#linha_destinatario').value.split(/[,\|]+/);
+
+
+                var csvContent = "Nome Da Regra;Estado Emissor;Estado Destinatario;CFOP;Regime Emissor;Regime Destinatario;Linha Emissor;Linha Destinatario\n";
+
+                for (var i = 0; i < combinacoes.length; i++) {
+                    var concate = combinacoes[i][0] + " > " + combinacoes[i][1] + " | " + combinacoes[i][2] + " | " + combinacoes[i][3] + " & " + combinacoes[i][4];
+                    csvContent += concate + ";" + combinacoes[i].join(';') + "\n";
+                }
+
+                var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+                saveAs(blob, 'combinacoes.csv');
             });
 
             function cartesianProduct(arrays) {
