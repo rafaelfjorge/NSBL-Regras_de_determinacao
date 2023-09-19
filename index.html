@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Combinações.</title>
+    <title>Gerador de Combinações</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </head>
 <body>
@@ -39,6 +39,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            var combinacoes;
             document.querySelector('#gerar_combinacoes').addEventListener('click', function () {
                 var cfops = document.querySelector('#cfops').value.split(/[,\|]+/);
                 var estados_emissor = document.querySelector('#estado_emissor').value.split(/[,\|]+/);
@@ -48,7 +49,7 @@
                 var linha_emissor = document.querySelector('#linha_emissor').value.split(/[,\|]+/);
                 var linha_destinatario = document.querySelector('#linha_destinatario').value.split(/[,\|]+/);
 
-                var combinacoes = cartesianProduct([estados_emissor, estados_destinatario, cfops, regime_emissor, regime_destinatario, linha_emissor, linha_destinatario]);
+                combinacoes = cartesianProduct([estados_emissor, estados_destinatario, cfops, regime_emissor, regime_destinatario, linha_emissor, linha_destinatario]);
 
                 var resultado = "<h2>Resultado das Combinações:" + " " + combinacoes.length + "</h2><ul>";
                 for (var i = 0; i < combinacoes.length; i++) {
@@ -68,14 +69,12 @@
                 var linha_emissor = document.querySelector('#linha_emissor').value.split(/[,\|]+/);
                 var linha_destinatario = document.querySelector('#linha_destinatario').value.split(/[,\|]+/);
 
-                var combinacoes = cartesianProduct([estados_emissor, estados_destinatario, cfops, regime_emissor, regime_destinatario, linha_emissor, linha_destinatario]);
-                var nome_da_regra = cartesianProduct([estados_emissor, estados_destinatario, cfops, regime_emissor, regime_destinatario]);
 
                 var csvContent = "Nome Da Regra;Estado Emissor;Estado Destinatario;CFOP;Regime Emissor;Regime Destinatario;Linha Emissor;Linha Destinatario\n";
 
-                for (var i = 0; i < nome_da_regra.length; i++) {
-                        var concate = nome_da_regra[i][0] + " > " + nome_da_regra[i][1] + " | " + nome_da_regra[i][2] + " | " + nome_da_regra[i][3] + " & " + nome_da_regra[i][4];
-                     csvContent += concate + ";" + combinacoes[i].join(';') + "\n";
+                for (var i = 0; i < combinacoes.length; i++) {
+                    var concate = combinacoes[i][0] + " > " + combinacoes[i][1] + " | " + combinacoes[i][2] + " | " + combinacoes[i][3] + " & " + combinacoes[i][4];
+                    csvContent += concate + ";" + combinacoes[i].join(';') + "\n";
                 }
 
                 var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
