@@ -1,0 +1,50 @@
+table
+{
+    background-color: #ffffff;
+    font-size: 14px;
+    border-spacing: 1px;
+    border-collapse: separate;
+}
+th
+{
+    background-color: #5b7b1d;
+    color: #ffffff;
+    text-transform: uppercase;
+    padding: 3px;
+}
+/*Isso faz que o Th do Tr recebe cores diferentes*/
+tr:nth-child(even)
+{
+    background-color: #f3e6f7;
+}
+tr:nth-child(odd)
+{
+    background-color: #ffffff;
+}
+
+h1 {
+    text-align: center;
+}
+body {
+font-family: Arial, sans-serif;
+background-color: #f1efef;
+text-align: left;
+}
+
+input[type=text]#cfops
+{
+    width: 50%;
+}
+input[type=text]#estado_emissor
+{
+    width: 30%;
+}
+input
+{
+    width: 30%;
+}
+
+button
+{
+
+}

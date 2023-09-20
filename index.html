@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Combinações</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <link rel="stylesheet" href="CSS/stylo_page.css"> 
 </head>
 <body>
     <h1>Gerador de Combinações</h1>
@@ -77,7 +79,7 @@
                     csvContent += concate + ";" + combinacoes[i].join(';') + "\n";
                 }
 
-                var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+                var blob = new Blob([csvContent], { type: 'text/csv;enconding=iso-8859-1'});
                 saveAs(blob, 'combinacoes.csv');
             });
 
