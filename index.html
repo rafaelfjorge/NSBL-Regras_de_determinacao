@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Combinações</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <link rel="stylesheet" href="CSS/stylo_page.css"> 
+    <link rel="stylesheet" href="CSS/stylo_page.css">
 </head>
 <body>
     <h1>Gerador de Combinações</h1>
     <form>
+        <label for="resultado">Combinações geradas:</label>
+        <input type="text" id="resultado" readonly> </p>
+
         <label for="cfops">CFOPs:</label>
         <input type="text" name="cfops" id="cfops" value="5201,6108,6102"><br><br>
 
@@ -32,16 +34,26 @@
         <label for="linha_destinatario">Linha Destinatário:</label>
         <input type="text" name="linha_destinatario" id="linha_destinatario" value="venda de mercadoria, prestação de serviço"><br><br>
 
-        <button type="button" id="gerar_combinacoes">Gerar Combinacoes</button>
-        <button type="button" id="exportar_csv">Exportar CSV</button>
-        <button type="button" id="limpar_resultados">Limpar Resultados</button>
+ 
+       
     </form>
 
-    <div id="resultado"></div>
+    <button type="button" id="gerar_combinacoes">Gerar Combinacoes</button> 
+    <button type="button" id="exportar_csv">Exportar CSV</button> 
+    <button type="button" id="limpar_resultados">Limpar Resultados</button></p> 
+
+
+    
+    
+   <!-- <h2 id="resultadoTitulo">Resultado das Combinações:</h2>  -->
+
+    <h2 id="resultados_geral"> </h2>
+    <table id="resultadoTabela"></table>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var combinacoes;
+
             document.querySelector('#gerar_combinacoes').addEventListener('click', function () {
                 var cfops = document.querySelector('#cfops').value.split(/[,\|]+/);
                 var estados_emissor = document.querySelector('#estado_emissor').value.split(/[,\|]+/);
@@ -52,14 +64,33 @@
                 var linha_destinatario = document.querySelector('#linha_destinatario').value.split(/[,\|]+/);
 
                 combinacoes = cartesianProduct([estados_emissor, estados_destinatario, cfops, regime_emissor, regime_destinatario, linha_emissor, linha_destinatario]);
+                //var resultado = "<h2>Resultado das Combinações:" + " " + combinacoes.length + "</h2><ul>";
 
-                var resultado = "<h2>Resultado das Combinações:" + " " + combinacoes.length + "</h2><ul>";
-                for (var i = 0; i < combinacoes.length; i++) {
-                    resultado += "<li>" + combinacoes[i].join(' ; ') + "</li>";
+                document.querySelector('#resultado').value = combinacoes.length;
+
+
+                var table = document.querySelector('#resultadoTabela');
+                table.innerHTML = ''; // Limpar tabela anterior
+
+                // Cabeçalho da tabela
+                var tableHeader = '<thead><tr>';
+                for (var i = 0; i < combinacoes[0].length; i++) {
+                    tableHeader += '<th>' + combinacoes[0][i] + '</th>';
                 }
-                resultado += "</ul>";
+                tableHeader += '</tr></thead>';
+                table.innerHTML = tableHeader;
 
-                document.querySelector('#resultado').innerHTML = resultado;
+                // Conteúdo da tabela
+                var tableBody = '<tbody>';
+                for (var i = 1; i < combinacoes.length; i++) {
+                    tableBody += '<tr>';
+                    for (var j = 0; j < combinacoes[i].length; j++) {
+                        tableBody += '<td>' + combinacoes[i][j] + '</td>';
+                    }
+                    tableBody += '</tr>';
+                }
+                tableBody += '</tbody>';
+                table.innerHTML += tableBody;
             });
 
             document.querySelector('#exportar_csv').addEventListener('click', function () {
@@ -71,7 +102,6 @@
                 var linha_emissor = document.querySelector('#linha_emissor').value.split(/[,\|]+/);
                 var linha_destinatario = document.querySelector('#linha_destinatario').value.split(/[,\|]+/);
 
-
                 var csvContent = "Nome Da Regra;Estado Emissor;Estado Destinatario;CFOP;Regime Emissor;Regime Destinatario;Linha Emissor;Linha Destinatario\n";
 
                 for (var i = 0; i < combinacoes.length; i++) {
@@ -79,7 +109,7 @@
                     csvContent += concate + ";" + combinacoes[i].join(';') + "\n";
                 }
 
-                var blob = new Blob([csvContent], { type: 'text/csv;enconding=iso-8859-1'});
+                var blob = new Blob([csvContent], { type: 'text/csv;enconding=iso-8859-1' });
                 saveAs(blob, 'combinacoes.csv');
             });
 
@@ -94,9 +124,17 @@
                     return result;
                 }, [[]]);
             }
-
             document.querySelector('#limpar_resultados').addEventListener('click', function () {
-                document.querySelector('#resultado').innerHTML = '';
+                document.querySelector('#resultadoTabela').innerHTML = '';
+                
+                var resultadosGeral = document.querySelector('#resultado');
+                resultadosGeral.value = '';
+
+                //var inputs = document.querySelectorById('input[type="text"]');
+                // var inputs = document.querySelectorAll('input[type="text"]');
+                // for(var i = 0; i < inputs.length; i++){
+                //     inputs[i].value = '';
+                // }
             });
         });
     </script>

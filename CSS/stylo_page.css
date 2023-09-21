@@ -1,14 +1,14 @@
 table
 {
     background-color: #ffffff;
-    font-size: 14px;
-    border-spacing: 1px;
+    font-size: auto;
+    border-spacing: 3px;
     border-collapse: separate;
 }
 th
 {
-    background-color: #5b7b1d;
-    color: #ffffff;
+    background-color: #9fa594;
+    color: #111111;
     text-transform: uppercase;
     padding: 3px;
 }
@@ -24,6 +24,7 @@ tr:nth-child(odd)
 
 h1 {
     text-align: center;
+    color: #2109f1;
 }
 body {
 font-family: Arial, sans-serif;
@@ -39,12 +40,34 @@ input[type=text]#estado_emissor
 {
     width: 30%;
 }
+
+input[type=text]#resultado{
+    width: 4%;
+    font-family: Arial, sans-serif;
+    background-color: #bfc7dd;
+    color: #000000;
+    text-align: center;
+    font-weight: bold;
+}
+
 input
 {
     width: 30%;
 }
 
-button
-{
+button {
+    background-color: blue; /* Define a cor de fundo para azul */
+    color: white; /* Define a cor do texto para branco */
+    padding: 8px 10px; /* Adiciona um espaçamento interno para o botão */
+    margin-right: 20px; /* Define a margem à direita para criar a distância de 5px entre os botões */
+    border: none; /* Remove a borda do botão */
+    cursor: pointer; /* Muda o cursor para uma mão ao passar o mouse sobre os botões */
+  }
 
+  button:last-child {
+    margin-right: 0; /* Remove a margem à direita do último botão */
+  }
+
+  button{
+    outline: none; /* Remove a borda de foco ao clicar nos botões */
 }
