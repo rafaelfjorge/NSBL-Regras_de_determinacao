@@ -1,35 +1,32 @@
-table
+table /*Formata a tabela de resultados*/
 {
-    background-color: #ffffff;
+    background-color: #0e0d0d;
     font-size: auto;
     border-spacing: 3px;
     border-collapse: separate;
+    color: #0e0d0d;
 }
-th
+/* body */
+th /*Titulo da tabela*/
 {
-    background-color: #9fa594;
-    color: #111111;
+    background-color: #eff3ef;
+    color: #290e0e;
     text-transform: uppercase;
     padding: 3px;
 }
 /*Isso faz que o Th do Tr recebe cores diferentes*/
-tr:nth-child(even)
+tr:nth-child(even) /*Cor da linha 2 da tabela*/
 {
-    background-color: #f3e6f7;
+    background-color: #f8f2f2;
 }
-tr:nth-child(odd)
+tr:nth-child(odd) /*Cor da linha 1 da tabela*/
 {
-    background-color: #ffffff;
+    background-color: #e8e7ec;
 }
 
-h1 {
+h1 { /*Cor do titulo Combinações para bla bloa bla*/
     text-align: center;
-    color: #2109f1;
-}
-body {
-font-family: Arial, sans-serif;
-background-color: #f1efef;
-text-align: left;
+    color: #faf7f7;
 }
 
 input[type=text]#cfops
@@ -41,11 +38,11 @@ input[type=text]#estado_emissor
     width: 30%;
 }
 
-input[type=text]#resultado{
+input[type=text]#resultado{ /*Esse aqui é o campo de combinações geradas*/
     width: 4%;
     font-family: Arial, sans-serif;
-    background-color: #bfc7dd;
-    color: #000000;
+    background-color: #f5f5fa;
+    color: #b10606;
     text-align: center;
     font-weight: bold;
 }
@@ -56,18 +53,185 @@ input
 }
 
 button {
-    background-color: blue; /* Define a cor de fundo para azul */
-    color: white; /* Define a cor do texto para branco */
+    background-color: rgb(12, 11, 11); /* Define a cor de fundo para azul */
+    color: rgb(247, 243, 243); /* Define a cor do texto para branco */
     padding: 8px 10px; /* Adiciona um espaçamento interno para o botão */
     margin-right: 20px; /* Define a margem à direita para criar a distância de 5px entre os botões */
     border: none; /* Remove a borda do botão */
     cursor: pointer; /* Muda o cursor para uma mão ao passar o mouse sobre os botões */
+    border-radius: 5px; /* Adiciona bordas arredondadas de 5px */
   }
 
-  button:last-child {
+button:last-child {
     margin-right: 0; /* Remove a margem à direita do último botão */
   }
 
-  button{
+button{
     outline: none; /* Remove a borda de foco ao clicar nos botões */
 }
+
+.watermark {
+    position: fixed;
+    top: 0;
+    right: 0;
+    opacity: 0.1; /* Define a opacidade da imagem */
+}
+/* Estilos para ocultar os subníveis por padrão */
+.submenu {
+    display: none;
+}
+
+/* Estilos para o menu principal */
+.menu-item:hover submenu {
+    display: block; /* Mostrar subníveis ao passar o mouse sobre o item principal */
+}
+
+/* Estilos para a imagem à esquerda */
+header {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+}
+submenu {
+    display: none;
+}
+.header_fixed{
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px; /* Valor alto para garantir que esteja acima do conteúdo */
+}
+.logo {
+    max-width: 100%;
+    height: auto;
+}
+.menu_fixed {
+    position: fixed;
+    top: 80px; /* Ajuste conforme necessário para evitar sobreposição com o cabeçalho */
+    left: 0;
+}
+
+*{margin: 0; padding: 0;} /*Isso redefine as margens e preenchimentos padrão de todos os elementos HTML para zero*/
+:root{ /*Define variáveis CSS globais para as cores utilizadas no estilo do menu.*/
+    --cor-fundo : rgb(251, 251, 252);
+    --cor-hover : rgb(7, 7, 7);
+    --cor-primaria : rgb(0, 0, 0);
+}
+
+.menu ul li{ /*Aplica estilos aos itens da lista principal do menu.*/
+	background-color: var(--cor-fundo);
+	float: left;
+	width: 200px;
+	height: 38px;
+	display: inline-block;
+	text-align: top;
+	line-height: 40px;
+	font-size: 20px;
+	position: relative;
+	border: 1px solid rgb(85, 83, 83);
+	list-style: none;
+    border-radius: 5px;
+	
+}
+.menu ul li:hover{ /*Aplica estilos quando o mouse está sobre os itens da lista principal do menu.*/
+	background:#615a5a; 
+    color:#fff; 
+    -moz-box-shadow:0 3px 10px 0 #CCC; 
+    -webkit-box-shadow:0 3px 10px 0 #ccc; 
+    text-shadow:0px 0px 5px #fff; 
+}
+
+.menu ul{ /*Aplica estilos à lista principal do menu*/
+	background-color: var(--cor-fundo);
+	padding: 0px;
+	list-style-type: nome;
+    z-index: 2;
+
+}
+
+.menu ul ul{ /*Aplica estilos aos submenus (dropdowns) do menu*/
+	display: none;
+	background-color: var(--cor-fundo);
+	color: var(--cor-primaria);
+	border-right: 1px solid black;
+}
+
+.menu ul li:hover > ul{ /*Exibe os submenus quando o mouse está sobre os itens da lista principal do menu.*/
+	display:block;
+	color: var(--cor-primaria);
+	
+}
+
+.menu ul ul ul{ /*Aplica estilos aos submenus de terceiro nível.*/
+	margin-left: 200px;
+	top: 0px;
+	position: absolute;
+	background-color: var(--cor-fundo);
+	color: var(--cor-primaria);
+	border-right: 1px solid rgb(255, 248, 248);
+}
+
+.menu ul ul li:hover{ /*Aplica estfilos quando o mouse está sobre os itens dos submenus.*/
+	background:#555353; 
+    color:#fff; 
+    -moz-box-shadow:0 3px 10px 0 #CCC; 
+    -webkit-box-shadow:0 3px 10px 0 #ccc; 
+    text-shadow:0px 0px 5px #fff; 
+}
+
+.menu ul ul ul li:hover{ /*Aplica estilos quando o mouse está sobre os itens dos submenus de terceiro nível.*/
+	background:#525050; 
+    color:#1f1d1d; 
+    -moz-box-shadow:0 3px 10px 0 #CCC; 
+    -webkit-box-shadow:0 3px 10px 0 #ccc; 
+    text-shadow:0px 0px 5px #fff; 
+}
+
+.menu a{ /* Aplica estilos aos links dentro do menu*/
+	color: var(--cor-primaria);
+	text-decoration: none;
+}
+.div{ /*Aplica estilos a uma div com a classe "div".*/
+	display: inline-block;
+	background-color: brown;
+	width: 200px;
+	height: 100px;
+}
+/* body { /*Define estilos globais para o corpo da página, como a fonte e a cor de fundo.
+    font-family: arial,Arial, Helvetica, sans-serif;
+    font-size: 12px;
+	background-color: var(--cor-fundo);
+} */
+div#2{ /*Define estilos para uma div com o id "2".*/
+    display: inline-block;
+}
+nav { /*plica estilos a elementos de navegação com a classe "menu".*/
+    display: flex;
+ }
+
+ body {
+    margin: 0; /* Remova as margens padrão do corpo para garantir cobertura total */
+    padding: 0; /* Remova o preenchimento padrão do corpo */
+    height: 100vh; /* Ajusta a altura para ocupar 100% da altura da viewport */
+    /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC8lV_g9rbw_-lJLhYQq3kFyuGnMMHgV7wnQ&usqp=CAU'); */
+    background-image: url('https://img.freepik.com/vetores-gratis/projeto-futurista-do-fundo_23-2148503793.jpg?w=1380&t=st=1696445410~exp=1696446010~hmac=2347f184f6355bb413461adddab44d1885843b7e2c7150df64dffb8d0b1ac23a');
+    background-size: cover; /* Garante que a imagem cubra toda a área do elemento */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    color: white;
+    font-size: larger;  
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px; /* Espaçamento interno opcional */
+    text-align: right; /* Alinhamento do texto à direita */
+    width: 100%; /* Ocupa 100% da largura */
+  }
