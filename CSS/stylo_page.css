@@ -220,7 +220,7 @@ nav { /*plica estilos a elementos de navegação com a classe "menu".*/
     padding: 0; /* Remova o preenchimento padrão do corpo */
     height: 100vh; /* Ajusta a altura para ocupar 100% da altura da viewport */
     /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC8lV_g9rbw_-lJLhYQq3kFyuGnMMHgV7wnQ&usqp=CAU'); */
-    background-image: url('https://img.freepik.com/vetores-gratis/projeto-futurista-do-fundo_23-2148503793.jpg?w=1380&t=st=1696445410~exp=1696446010~hmac=2347f184f6355bb413461adddab44d1885843b7e2c7150df64dffb8d0b1ac23a');
+    background-image: url('https://cdn.wallpapersafari.com/81/96/iTInQc.jpg');
     background-size: cover; /* Garante que a imagem cubra toda a área do elemento */
     background-position: center; /* Centraliza a imagem */
     background-repeat: no-repeat; /* Evita repetição da imagem */
